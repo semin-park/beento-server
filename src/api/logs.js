@@ -5,9 +5,12 @@ const router = Router();
 
 const LogEntry = require('../models/LogEntry');
 
-router.get('/', async (req, res, next) => {
+router.get('/all/:id', async (req, res, next) => {
     try {
-        const entries = await LogEntry.find()
+        const userId = req.params.id;
+        const entries = await LogEntry.find({
+            userId: userId,
+        });
         res.json(entries);
     } catch (err) {
         next(err);
